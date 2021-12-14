@@ -1,0 +1,51 @@
+<section>
+  <div class="container paddingBotton">
+    <div class="row justify-content-end">
+      {{ usernameSession }}
+    </div>
+    <!-- Notificación sobre las acciones-->
+    <div class="col-md-12"*ngIf="alert != ''">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ alert }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="showFormPost()" >agregar nota</button>
+      <!-- Formulario para agregar post-->
+    <form *ngIf="showForm == true" class="mb-4" [formGroup]="formPost" (ngSubmit)="createPost(formPost.value)" novalidate>
+        <div class="my-3 col-md-6">
+            <label class="form-label">Titulo</label>
+            <input type="text" class="form-control" name="title" formControlName="title" [ngClass]="{ 'border border-danger': postFormControl.title.touched && postFormControl.title.invalid }">
+            <div class="text-danger">
+                <span *ngIf="postFormControl.title.touched && postFormControl.title.errors?.required">El titulo es necesario</span>
+                <span *ngIf="postFormControl.title.touched && postFormControl.title.errors?.maxlength">El titulo es muy largo</span>
+            </div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+            <label class="form-label">Contenido</label>
+            <textarea rows="8" cols="77" name="content" formControlName="content" [ngClass]="{ 'border border-danger': postFormControl.content.touched && postFormControl.content.invalid }"></textarea>
+            <div class="text-danger">
+                <span *ngIf="postFormControl.content.touched && postFormControl.content.errors?.required">El contenido es obligatorio</span>
+                <span *ngIf="postFormControl.content.touched && postFormControl.content.errors?.maxlength">Excedió el limite de texto</span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Publicar</button>
+    </form>
+    <!-- //Formulario para post -->
+
+   <div class="row" *ngFor="let post of posts">
+    <div class="col-md-6 col-md-offset-3 post">
+     <h2>{{post.title}}</h2>
+     <span class="post-name">Elizabeth</span>
+     <span class="post-date">{{ post.created_at| date : 'EEEE, MMMM d, y HH:mm'}}</span>
+     <p class="pt-4">{{post.content}}</p>
+    </div>
+    <!-- comments section -->
+    <div class="col-md-6 col-md-offset-3">
+      <app-comment [postObject]="post" ></app-comment>
+    </div>
+   </div>
+  </div>
+</section>

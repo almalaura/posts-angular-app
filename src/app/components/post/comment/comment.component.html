@@ -1,0 +1,30 @@
+<!-- comments section -->
+<section>
+  <!-- comment form -->
+  <form class="clearfix mt-2" [formGroup]="formComment" (ngSubmit)="createComment(formComment.value)">
+    <h4>Haz un comentario:</h4>
+    <textarea class="form-control" formControlName="comment" cols="30" rows="2"
+    [ngClass]="{ 'border border-danger': commentFormControl.comment.touched && commentFormControl.comment.invalid }"></textarea>
+    <div class="text-danger">
+        <span *ngIf="commentFormControl.comment.touched && commentFormControl.comment.errors?.required">El comentario es necesario</span>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm pull-right">Comentar</button>
+  </form>
+
+  <!-- comments wrapper -->
+  <div id="comments-wrapper" *ngFor="let comment of comments">
+  <div class="comment clearfix">
+    <div class="comment-details">
+     <span class="comment-name">Elizabeth</span>
+     <span class="comment-date">{{comment.created_at| date : 'EEEE, MMMM d, y HH:mm'}}</span>
+     <p>{{comment.comment}}</p>
+    </div>
+    <div>
+     <!-- reply -->
+     <app-reply [commentObject]="comment" ></app-reply>
+    </div>
+   </div>
+  </div>
+  <!-- // comments wrapper -->
+</section>
+<!-- // comments section -->

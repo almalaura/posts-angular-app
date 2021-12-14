@@ -1,0 +1,10 @@
+form button { margin: 5px 0px; }
+textarea { display: block; margin-bottom: 10px; }
+/*post*/
+.post { border: 1px solid #ccc; margin-top: 10px; }
+.post .post-name { font-weight: bold; }
+.post .post-date {
+ font-style: italic;
+ font-size: 0.8em;
+}
+.paddingBotton { padding-bottom: 10%;}

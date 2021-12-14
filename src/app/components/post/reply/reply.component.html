@@ -1,0 +1,23 @@
+<!-- reply -->
+<button type="button" class="reply-btn btn btn-link" (click)="showReplayInput()">Responder</button>
+<div class="comment reply clearfix">
+<div *ngFor="let reply of replies" class="comment-details">
+ <span class="comment-name">Awa</span>
+ <span class="comment-date">{{reply.created_at| date : 'EEEE, MMMM d, y HH:mm'}}</span>
+ <p>{{reply.answer}}</p>
+ <button type="button" class="reply-btn btn btn-link" (click)="showReplayInput()">Responder</button>
+</div>
+<!-- input reply -->
+<form *ngIf="inputReply === true" [formGroup]="formReply" (ngSubmit)="createReply(formReply.value)">
+    <div class="mb-3">
+        <label class="form-label">Responder comentario <button type="button" class="reply-btn btn btn-link" (click)="hiddenReplayInput()"><small>cancelar</small></button> </label>
+        <textarea class="form-control" formControlName="answer" cols="30" rows="2"
+        [ngClass]="{ 'border border-danger': replyFormControl.answer.touched && replyFormControl.answer.invalid }"></textarea>
+        <div class="text-danger">
+            <span *ngIf="replyFormControl.answer.touched && replyFormControl.answer.errors?.required">El comentario es necesario</span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Responder comentario</button>
+</form>
+<!-- // input reply -->
+</div>
